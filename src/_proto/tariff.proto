@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package tariff;
+
+import "commons.proto";
+
+service TariffService {
+  rpc Create (TariffInput) returns (commons.Response) {}
+  rpc Tariffs (commons.AllInput) returns (Tariffs) {}
+  rpc CreateValidity (ValidityInput) returns (commons.Response) {}
+  rpc TariffsConf (commons.AllInput) returns (TariffsConfs) {}
+  rpc CreateConf (TariffConfInput) returns (commons.Response) {}
+}
+
+message TariffType {
+  string name = 1;
+  int32 code = 2;
+}
+
+message FinancingCode {
+  int32 code = 1;
+  string gloss = 2;
+}
+
+message Validity {
+  string start = 1;
+  string end = 2;
+  int32 timezoneOffset = 3;
+}
+
+message Tariff {
+  string _id = 1;
+  int32 code = 2;
+  string description = 3;
+  int32 holding = 4;
+  int32 tariffRef = 5;
+  TariffType tariffType = 6;
+  FinancingCode financingCode = 7;
+  repeated Validity validity = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
+}
+
+message Service {
+  string _id = 1;
+  int32 code = 2;
+  string description = 3;
+  int32 netWorth = 4;
+  int32 netValueTariff = 5;
+  int32 totalValue = 6;
+}
+
+message TariffConf {
+  string _id = 1;
+  int32 code = 2;
+  string description = 3;
+  bool status = 4;
+  string startValidity = 5;
+  string termValidity = 6;
+  repeated Service services = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message TariffInput {
+  string description = 1;
+}
+
+message TariffConfInput {
+  optional int32 code = 1;
+  string description = 2;
+  int32 netWorth = 3;
+  int32 netValueTariff = 4;
+  int32 totalValue = 5;
+  string startValidity = 6;
+  repeated Service services = 7;
+}
+
+message ValidityInput {
+  int32 code = 1;
+  Validity validity = 2;
+}
+
+message Tariffs {
+  repeated Tariff tariffs = 1;
+}
+
+message TariffsConfs {
+  repeated TariffConf tariffsConf = 1;
+}

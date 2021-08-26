@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package commons;
+
+enum DevelopResponse {
+  SUCCESS_QUERY = 0;
+  ERROR_QUERY = 1;
+  INTERNAL_ERROR = 2;
+}
+
+message Id {
+  string id = 1;
+}
+
+message Email {
+  string email = 1;
+}
+
+message AllInput {
+  int32 skip = 1;
+  int32 take = 2;
+}
+
+message Response {
+  string message = 1;
+  DevelopResponse developerCode = 2;
+}
